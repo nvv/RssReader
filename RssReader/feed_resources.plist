@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple Computer//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<!--
+   feed_resources.plist
+   RssReader
+
+   Created by Vlad Namashko on 5/16/19.
+   Copyright (c) 2019 Vlad Namashko. All rights reserved.
+-->
+<plist version="1.0">
+    <dict>
+        
+        <key>FeedResources</key>
+        <array>
+            <string>http://www.espn.com/espn/rss/news</string>
+            <string>http://www.espn.com/espn/rss/nfl/news</string>
+            <string>http://www.espn.com/espn/rss/nba/news</string>
+            <string>http://www.espn.com/espn/rss/mlb/news</string>
+            <string>http://www.espn.com/espn/rss/nhl/news</string>
+            <string>http://www.espn.com/espn/rss/rpm/news</string>
+            <string>http://www.espn.com/espn/rss/soccer/news</string>
+            <string>http://www.espn.com/espn/rss/espnu/news</string>
+            <string>http://www.espn.com/espn/rss/ncb/news</string>
+<!--            <string>http://www.espn.com/espn/rss/action/news</string>            -->
+        </array>
+
+    </dict>
+</plist>

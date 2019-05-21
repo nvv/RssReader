@@ -8,29 +8,22 @@
 
 import UIKit
 
-class NewsTableViewController: UITableViewController {
-
-    private var feed : RssFeed?
+class NewsTableViewController: UITableViewController, NewsViewDelegate {
+    
+    private var newsData: NewsData?
+    
+    private var presenter: NewsFeedPresenter?
+    
+    private var loadingSpinner: UIView?
     
     override func viewDidLoad() {
         super.viewDidLoad()
 
         tableView.dataSource = self
         tableView.delegate = self
-        
-        DispatchQueue.global().async {
-            do {
-                let rss = try String(contentsOf: URL(string: "http://feeds.bbci.co.uk/news/world/rss.xml")!)
-                self.feed = RssFeed(XmlParser().parse(xml: rss)!)
-                
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            } catch {
-                print("Error while getting rss feed")
-            }
-        }
-        
+
+        presenter = NewsFeedPresenter(view: self)
+   
         tableView.rowHeight = UITableViewAutomaticDimension
         tableView.estimatedRowHeight = UITableViewAutomaticDimension
 
@@ -41,11 +34,45 @@ class NewsTableViewController: UITableViewController {
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
 
+//    func load(_ url: String, _ completion: () -> Void) {
+//        do {
+//            let rss = try String(contentsOf: URL(string: "http://feeds.bbci.co.uk/news/world/rss.xml")!)
+//        } catch {
+//
+//        }
+//        completion()
+//    }
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
 
+    func loading(isLoading: Bool) {
+        if (isLoading) {
+            let spinnerView = UIView.init(frame: self.view.bounds)
+            spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+            let ai = UIActivityIndicatorView()
+            ai.activityIndicatorViewStyle = .whiteLarge
+            ai.startAnimating()
+            ai.center = spinnerView.center
+            
+            spinnerView.addSubview(ai)
+            self.view.addSubview(spinnerView)
+            
+            loadingSpinner = spinnerView
+        } else if (loadingSpinner != nil) {
+            loadingSpinner?.removeFromSuperview()
+            loadingSpinner = nil
+        }
+    }
+    
+    func showNews(newsData: NewsData) {
+        self.newsData = newsData
+        self.tableView.reloadData()
+    }
+    
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -54,11 +81,8 @@ class NewsTableViewController: UITableViewController {
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete implementation, return the number of rows
-        if feed == nil {
-            return 0
-        } else {
-            return (feed?.items.count)!
-        }
+        return newsData?.getItems().count ?? 0
+        
     }
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -67,7 +91,7 @@ class NewsTableViewController: UITableViewController {
             fatalError("The dequeued cell is not an instance of NewsTableViewCell.")
         }
 
-        cell.bind((feed?.items[indexPath.row])!)
+        cell.bind((newsData?.getItems()[indexPath.row])!)
 
         return cell
     }
@@ -112,14 +136,15 @@ class NewsTableViewController: UITableViewController {
     }
     */
 
-    /*
+    
     // MARK: - Navigation
-
+    
     // In a storyboard-based application, you will often want to do a little preparation before navigation
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
+        super.prepare(for: segue, sender: sender)
+        
+        let viewController = segue.destination as? DetailedNewsViewController
+        viewController?.rssNewsItem = (sender as? NewsTableViewCell)?.rssNewsItem
     }
-    */
-
+    
 }

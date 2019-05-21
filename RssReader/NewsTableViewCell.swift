@@ -15,14 +15,10 @@ class NewsTableViewCell: UITableViewCell {
     @IBOutlet weak var newsDescription: UITextView!
     @IBOutlet weak var thumbnail: UIImageView!
     
+    var rssNewsItem: NewsItem?
+    
     override func layoutSubviews() {
         super.layoutSubviews()
-    
-//        newsDescription.textContainer.maximumNumberOfLines = 3
-//        newsDescription.textContainer.lineBreakMode = .byTruncatingTail
-//        newsDescription.isEditable = false
-//        newsDescription.isScrollEnabled = false
-//
     }
     
     override func awakeFromNib() {
@@ -32,6 +28,8 @@ class NewsTableViewCell: UITableViewCell {
         newsDescription.textContainer.lineBreakMode = .byTruncatingTail
         newsDescription.isEditable = false
         newsDescription.isScrollEnabled = false
+        newsDescription.isSelectable = false
+        
         
         newsTitle.font = UIFont.boldSystemFont(ofSize: 16)
         
@@ -44,28 +42,22 @@ class NewsTableViewCell: UITableViewCell {
         // Configure the view for the selected state
     }
 
-    func bind(_ newsItem: RssFeed.Item) {
+    func bind(_ newsItem: NewsItem) {
+        rssNewsItem = newsItem
+        
         newsTitle.text = newsItem.title
         newsDescription.text = newsItem.description
         
         DispatchQueue.global().async { [weak self] in
-            let url = URL(string: newsItem.thumbnail.url)
-            if let data = try? Data(contentsOf: url!) {
-                if let image = UIImage(data: data) {
-                    DispatchQueue.main.async {
-                        self?.thumbnail.contentMode = .scaleAspectFit
-                        let img = self?.resizeHeightCrop(image: image, targetSize: CGSize(width: 86, height: 100))
-//
-//                        let targetWidth = 86
-//                        let targetHeight = 100
-//
-//                        let img = self?.cropImage(image: image, cropRect: CGRect(
-//                            x: Int(image.size.width / 2) - targetWidth,
-//                            y: Int(image.size.height / 2) - targetHeight,
-//                            width: targetWidth,
-//                            height: targetHeight))
-                        
-                        self?.thumbnail.image = img
+            if let thumbnail = newsItem.thumbnail {
+                let url = URL(string: thumbnail)
+                if let data = try? Data(contentsOf: url!) {
+                    if let image = UIImage(data: data) {
+                        DispatchQueue.main.async {
+                            self?.thumbnail.contentMode = .scaleAspectFit
+                            let img = self?.resizeHeightCrop(image: image, targetSize: CGSize(width: 86, height: 100))
+                            self?.thumbnail.image = img
+                        }
                     }
                 }
             }

@@ -48,15 +48,16 @@ class RssFeed {
     class Item {
         var title: String?
         let description: String?
-        let thumbnail: Thumbnail
+//        let thumbnail: Thumbnail
+        let thumbnail: String?
         
         init(_ node: XmlNode?) {
             title = node?.getChild("title")?.value
             description = node?.getChild("description")?.value
-            thumbnail = Thumbnail(node?.getChild("media:thumbnail"))
-            
+//            thumbnail = Thumbnail(node?.getChild("media:thumbnail"))
+            thumbnail = node?.getChild("image")?.value
         }
-        
+        /*
         class Thumbnail {
             let width: Int
             let height: Int
@@ -68,6 +69,7 @@ class RssFeed {
                 url = (thumbnail?.attributes?["url"])!
             }
         }
+         */
     }
 }
 
