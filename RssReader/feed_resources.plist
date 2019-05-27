@@ -11,18 +11,27 @@
     <dict>
         
         <key>FeedResources</key>
-        <array>
+        <dict>
+            <key>news</key>
             <string>http://www.espn.com/espn/rss/news</string>
+            <key>nfl</key>
             <string>http://www.espn.com/espn/rss/nfl/news</string>
+            <key>nba</key>
             <string>http://www.espn.com/espn/rss/nba/news</string>
+            <key>mlb</key>
             <string>http://www.espn.com/espn/rss/mlb/news</string>
+            <key>nhl</key>
             <string>http://www.espn.com/espn/rss/nhl/news</string>
+            <key>rpm</key>
             <string>http://www.espn.com/espn/rss/rpm/news</string>
+            <key>soccer</key>
             <string>http://www.espn.com/espn/rss/soccer/news</string>
+            <key>espnu</key>
             <string>http://www.espn.com/espn/rss/espnu/news</string>
+            <key>ncb</key>
             <string>http://www.espn.com/espn/rss/ncb/news</string>
 <!--            <string>http://www.espn.com/espn/rss/action/news</string>            -->
-        </array>
+        </dict>
 
     </dict>
 </plist>

@@ -33,15 +33,6 @@ class NewsTableViewController: UITableViewController, NewsViewDelegate {
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
     }
-
-//    func load(_ url: String, _ completion: () -> Void) {
-//        do {
-//            let rss = try String(contentsOf: URL(string: "http://feeds.bbci.co.uk/news/world/rss.xml")!)
-//        } catch {
-//
-//        }
-//        completion()
-//    }
     
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
@@ -87,7 +78,7 @@ class NewsTableViewController: UITableViewController, NewsViewDelegate {
 
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cellIdentifier = "NewsTableViewCell"
-        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? NewsTableViewCell  else {
+        guard let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as? NewsTableViewCell else {
             fatalError("The dequeued cell is not an instance of NewsTableViewCell.")
         }
 

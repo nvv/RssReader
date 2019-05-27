@@ -19,11 +19,11 @@ class NewsFeedPresenter {
         
         var feedList = [RssFeed]()
         let group = DispatchGroup()
-        getFeedList().forEach { url in
+        getFeedList().forEach { feedItem in
             let download = DispatchWorkItem {
                 group.enter()
                 do {
-                    let rss = try self.getContent(url)
+                    let rss = try self.getContent(feedItem.value)
                     feedList.append(RssFeed(XmlParser().parse(xml: rss)!))
                 } catch {
                 }
@@ -38,21 +38,20 @@ class NewsFeedPresenter {
             view.showNews(newsData: NewsData(feedList: feedList))
         }
         
-
     }
     
-    private func getFeedList() -> [String] {
+    private func getFeedList() -> [String: String] {
         if let path = Bundle.main.path(forResource: NewsFeedPresenter.feedResourcesFile, ofType: "plist") {
             if let dict = NSDictionary(contentsOfFile: path) {
                 if let feeds = dict[NewsFeedPresenter.feedResourcesKey] {
-                    if let list = feeds as? [String] {
+                    if let list = feeds as? [String: String] {
                         return list
                     }
                 }
             }
         }
         
-        return []
+        return [:]
     }
     
     private func getContent(_ url: String) throws -> String {

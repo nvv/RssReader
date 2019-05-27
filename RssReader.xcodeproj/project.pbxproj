@@ -25,6 +25,10 @@
 		FB86A301226AE04200B0DBD8 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = FB86A300226AE04200B0DBD8 /* Default-568h@2x.png */; };
 		FBCA30ED228E89E9004DE0BD /* feed_resources.plist in Resources */ = {isa = PBXBuildFile; fileRef = FBCA30EC228E89E9004DE0BD /* feed_resources.plist */; };
 		FBD286902288E9F6007D77B4 /* DetailedNewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBD2868F2288E9F6007D77B4 /* DetailedNewsViewController.swift */; };
+		FBDFF20D229B247B00B89672 /* NewsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDFF20C229B247B00B89672 /* NewsViewController.swift */; };
+		FBDFF20F229B25DC00B89672 /* NewsSmallCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDFF20E229B25DC00B89672 /* NewsSmallCell.swift */; };
+		FBDFF212229B72F100B89672 /* NewsFullCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDFF211229B72F100B89672 /* NewsFullCell.swift */; };
+		FBDFF214229B79BD00B89672 /* BaseNewsCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = FBDFF213229B79BD00B89672 /* BaseNewsCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -60,6 +64,10 @@
 		FB86A300226AE04200B0DBD8 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		FBCA30EC228E89E9004DE0BD /* feed_resources.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = feed_resources.plist; sourceTree = "<group>"; };
 		FBD2868F2288E9F6007D77B4 /* DetailedNewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailedNewsViewController.swift; sourceTree = "<group>"; };
+		FBDFF20C229B247B00B89672 /* NewsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsViewController.swift; sourceTree = "<group>"; };
+		FBDFF20E229B25DC00B89672 /* NewsSmallCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsSmallCell.swift; sourceTree = "<group>"; };
+		FBDFF211229B72F100B89672 /* NewsFullCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewsFullCell.swift; sourceTree = "<group>"; };
+		FBDFF213229B79BD00B89672 /* BaseNewsCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BaseNewsCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -154,6 +162,7 @@
 		FB86A2DF226AB6D400B0DBD8 /* RssReader */ = {
 			isa = PBXGroup;
 			children = (
+				FBDFF210229B2CAA00B89672 /* flow */,
 				FB0E68482293C6250034D3EB /* util */,
 				FB0E683E229375E80034D3EB /* presenter */,
 				FB35845B226C23C20001FA5B /* core */,
@@ -178,6 +187,17 @@
 				FB86A2F7226AB6D600B0DBD8 /* Info.plist */,
 			);
 			path = RssReaderTests;
+			sourceTree = "<group>";
+		};
+		FBDFF210229B2CAA00B89672 /* flow */ = {
+			isa = PBXGroup;
+			children = (
+				FBDFF20C229B247B00B89672 /* NewsViewController.swift */,
+				FBDFF20E229B25DC00B89672 /* NewsSmallCell.swift */,
+				FBDFF211229B72F100B89672 /* NewsFullCell.swift */,
+				FBDFF213229B79BD00B89672 /* BaseNewsCell.swift */,
+			);
+			path = flow;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,10 +308,14 @@
 				FB0E6842229376620034D3EB /* NewsViewDelegate.swift in Sources */,
 				FBD286902288E9F6007D77B4 /* DetailedNewsViewController.swift in Sources */,
 				FB0E68442293B1B20034D3EB /* NewsData.swift in Sources */,
+				FBDFF214229B79BD00B89672 /* BaseNewsCell.swift in Sources */,
 				FB0E68402293762F0034D3EB /* NewsFeedPresenter.swift in Sources */,
+				FBDFF212229B72F100B89672 /* NewsFullCell.swift in Sources */,
+				FBDFF20D229B247B00B89672 /* NewsViewController.swift in Sources */,
 				FB1F8E5D226D8ADE00540F56 /* NewsTableViewCell.swift in Sources */,
 				FB0E684A2293C63C0034D3EB /* Extensions.swift in Sources */,
 				FB1F8E5B226D409300540F56 /* NewsTableViewController.swift in Sources */,
+				FBDFF20F229B25DC00B89672 /* NewsSmallCell.swift in Sources */,
 				FB0E68472293B8A20034D3EB /* NewsItem.swift in Sources */,
 				FB35845E226C240D0001FA5B /* RssFeed.swift in Sources */,
 				FB358460226C327A0001FA5B /* XmlParser.swift in Sources */,
