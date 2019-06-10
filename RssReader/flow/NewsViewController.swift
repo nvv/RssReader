@@ -92,14 +92,28 @@ extension NewsViewController: UICollectionViewDataSource {
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         
-        let cell = indexPath.row % 5 == 0 ?
-            collectionView.dequeueReusableCell(withReuseIdentifier: "NewsFullCell", for: indexPath) as! BaseNewsCell :
-            collectionView.dequeueReusableCell(withReuseIdentifier: "NewsCell", for: indexPath) as! BaseNewsCell
-
+        let cell: BaseNewsCell
         if let item = newsData?.getItems()[indexPath.row] {
+            if (item is AnchorItem) {
+                cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsFullCell", for: indexPath) as! BaseNewsCell
+            } else if (item is CompatItem) {
+                cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsCompatCell", for: indexPath) as! BaseNewsCell
+            } else if (item is CompatImageItem) {
+                cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsCompatImageCell", for: indexPath) as! BaseNewsCell
+            } else {
+                cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsCell", for: indexPath) as! BaseNewsCell
+            }
+            
             cell.bind(item)
+        } else {
+            cell = collectionView.dequeueReusableCell(withReuseIdentifier: "NewsCell", for: indexPath) as! BaseNewsCell
         }
-        return cell 
+        
+//        let cell = indexPath.row % 5 == 0 ?
+//            collectionView.dequeueReusableCell(withReuseIdentifier: "NewsFullCell", for: indexPath) as! BaseNewsCell :
+//            collectionView.dequeueReusableCell(withReuseIdentifier: "NewsCell", for: indexPath) as! BaseNewsCell
+
+        return cell
     }
 }
 
@@ -118,10 +132,29 @@ extension NewsViewController: UICollectionViewDelegateFlowLayout {
 
 //        return CGSize(width: collectionView.bounds.size.width - 16, height: 120)
         
-        let width = indexPath.row % 5 == 0 ?
-            (collectionView.bounds.size.width - 16) : ((collectionView.bounds.size.width) / 2 - 16)
+        let width: CGFloat
+        let height: CGFloat
+        if let item = newsData?.getItems()[indexPath.row] {
+            if (item is AnchorItem) {
+                width = collectionView.bounds.size.width - 16
+                height = 360
+            } else if (item is CompatItem || item is CompatImageItem) {
+                width = collectionView.bounds.size.width - 16
+                height = 160
+            } else {
+                width = (collectionView.bounds.size.width) / 2 - 16
+                height = 180
+                
+            }
+        } else {
+            width = 0
+            height = 0
+        }
         
-        let height = indexPath.row % 5 == 0 ? 120 : 240
+//        let width = indexPath.row % 5 == 0 ?
+//            (collectionView.bounds.size.width - 16) : ((collectionView.bounds.size.width) / 2 - 16)
+//
+//        let height = indexPath.row % 5 == 0 ? 360 : 240
         
         return CGSize(width: width, height: CGFloat(height))
     }

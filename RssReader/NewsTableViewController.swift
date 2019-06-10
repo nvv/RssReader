@@ -82,7 +82,7 @@ class NewsTableViewController: UITableViewController, NewsViewDelegate {
             fatalError("The dequeued cell is not an instance of NewsTableViewCell.")
         }
 
-        cell.bind((newsData?.getItems()[indexPath.row])!)
+        //cell.bind((newsData?.getItems()[indexPath.row])!)
 
         return cell
     }

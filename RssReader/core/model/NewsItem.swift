@@ -13,7 +13,7 @@ class NewsItem {
     private(set) var title: String
     private(set) var description: String
     private(set) var thumbnail: String?
-    
+
     init(title: String, description: String, thumbnail: String?) {
         self.title = title
         self.description = description

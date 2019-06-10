@@ -10,16 +10,37 @@ import Foundation
 
 class NewsData {
     
-    private var items = [NewsItem]()
+    private var items = [FeedItem]()
     
     init(feedList: [RssFeed]) {
+        
         feedList.forEach { feed in
-            feed.items.forEach { item in
-                items.append(NewsItem.init(item: item))
+            items.append(AnchorItem(item: NewsItem(item: feed.items.removeFirst())))
+            
+//            feed.items.forEach { item in
+
+            var isRight = false
+            for (index, item) in feed.items.enumerated() {
+                if ((index == feed.items.count - 1 && index % 2 == 0)) {
+                    items.append(
+                        item.thumbnail == nil ?
+                        CompatItem(item: NewsItem(item: item)) :
+                        CompatImageItem(item: NewsItem(item: item))
+                    )
+                } else if (item.thumbnail == nil) {
+                    isRight = false
+                    items.append(CompatItem(item: NewsItem(item: item)))
+                } else if (isRight || (index < feed.items.count - 1 && feed.items[index + 1].thumbnail != nil)) {
+                    isRight = !isRight
+                    items.append(SmallImageItem(item: NewsItem(item: item)))
+                } else {
+                    isRight = false
+                    items.append(CompatImageItem(item: NewsItem(item: item)))
+                }
             }
         }
         
-        shuffle()
+//        shuffle()
     }
     
     private func shuffle() {
@@ -30,7 +51,7 @@ class NewsData {
         }
     }
     
-    func getItems() -> [NewsItem] {
+    func getItems() -> [FeedItem] {
         return items
     }
 }

@@ -10,9 +10,9 @@ import UIKit
 
 class BaseNewsCell: UICollectionViewCell {
 
-    internal var rssNewsItem: NewsItem?
+    internal var rssNewsItem: FeedItem?
     
-    func bind(_ newsItem: NewsItem) {
+    func bind(_ newsItem: FeedItem) {
         rssNewsItem = newsItem
     }
  

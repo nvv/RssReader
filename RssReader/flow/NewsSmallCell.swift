@@ -10,34 +10,19 @@ import UIKit
 
 class NewsSmallCell: BaseNewsCell {
     
-//    weak var textLabel: UILabel!
-    
-//    @IBOutlet weak var textLabel: UILabel!
+    static let maxLines = 4
     
     @IBOutlet weak var thumbnail: UIImageView!
     @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var newsDescription: UITextView!
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        
-//        let textLabel = UILabel(frame: .zero)
-//        textLabel.translatesAutoresizingMaskIntoConstraints = false
-//        self.contentView.addSubview(textLabel)
-//        NSLayoutConstraint.activate([
-//            textLabel.topAnchor.constraint(equalTo: self.contentView.topAnchor),
-//            textLabel.bottomAnchor.constraint(equalTo: self.contentView.bottomAnchor),
-//            textLabel.leadingAnchor.constraint(equalTo: self.contentView.leadingAnchor),
-//            textLabel.trailingAnchor.constraint(equalTo: self.contentView.trailingAnchor),
-//            ])
-//        self.textLabel = textLabel
-//
-//        self.contentView.backgroundColor = .lightGray
-//        self.textLabel.textAlignment = .center
     }
     
-    override func bind(_ newsItem: NewsItem) {
+    override func bind(_ newsItem: FeedItem) {
         super.bind(newsItem)
-        self.title.text = rssNewsItem?.title
+        title.text = rssNewsItem?.title
         
         let width = self.bounds.width
         let height = self.bounds.height / 1.8
@@ -49,14 +34,19 @@ class NewsSmallCell: BaseNewsCell {
                 if let data = try? Data(contentsOf: url!) {
                     if let image = UIImage(data: data) {
                         DispatchQueue.main.async {
-                            
-                            print(">>>  " + newsItem.title)
-                            print(">>>  " + String(Int(image.size.width)) + "  " + String(Int(image.size.height)))
-
-                            
                             self?.thumbnail.contentMode = .scaleAspectFit
                             let img = self?.resizeHeightCrop(image: image, targetSize: CGSize(width: width, height: height))
                             self?.thumbnail.image = img
+                        
+                            if let titleLines = self?.title.calculateMaxLines() {
+                                let descriptionLines = NewsSmallCell.maxLines - titleLines
+
+                                self?.title.numberOfLines = titleLines <= NewsSmallCell.maxLines ? titleLines : NewsSmallCell.maxLines
+                                self?.newsDescription.textContainer.maximumNumberOfLines = descriptionLines > 0 ? descriptionLines : 0
+                                
+                                self?.newsDescription.text = descriptionLines > 0 ? self?.rssNewsItem?.description ?? "" : ""
+                                self?.title.text = self?.rssNewsItem?.title
+                            }
                         }
                     }
                 }
@@ -71,11 +61,13 @@ class NewsSmallCell: BaseNewsCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        newsDescription.textContainer.lineBreakMode = .byTruncatingTail
     }
     
     override func prepareForReuse() {
         super.prepareForReuse()
         
-        self.title.text = nil
+        title.text = nil
+        newsDescription.text = nil
     }
 }
