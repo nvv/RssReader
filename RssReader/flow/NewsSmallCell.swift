@@ -8,9 +8,10 @@
 
 import UIKit
 
-class NewsSmallCell: BaseNewsCell {
+class NewsSmallCell: BaseImageCell {
     
     static let maxLines = 4
+    static let maxTitleLines = 3
     
     @IBOutlet weak var thumbnail: UIImageView!
     @IBOutlet weak var title: UILabel!
@@ -35,10 +36,11 @@ class NewsSmallCell: BaseNewsCell {
                     if let image = UIImage(data: data) {
                         DispatchQueue.main.async {
                             self?.thumbnail.contentMode = .scaleAspectFit
-                            let img = self?.resizeHeightCrop(image: image, targetSize: CGSize(width: width, height: height))
+                            let img = self?.resizeCropCenter(image: image, targetSize: CGSize(width: width, height: height), resizeAdjust: .width)
                             self?.thumbnail.image = img
                         
-                            if let titleLines = self?.title.calculateMaxLines() {
+                            if let totalTitleLines = self?.title.calculateMaxLines() {
+                                let titleLines = totalTitleLines < NewsSmallCell.maxTitleLines ? totalTitleLines : NewsSmallCell.maxTitleLines
                                 let descriptionLines = NewsSmallCell.maxLines - titleLines
 
                                 self?.title.numberOfLines = titleLines <= NewsSmallCell.maxLines ? titleLines : NewsSmallCell.maxLines

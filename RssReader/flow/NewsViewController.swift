@@ -140,7 +140,7 @@ extension NewsViewController: UICollectionViewDelegateFlowLayout {
                 height = 360
             } else if (item is CompatItem || item is CompatImageItem) {
                 width = collectionView.bounds.size.width - 16
-                height = 160
+                height = 100
             } else {
                 width = (collectionView.bounds.size.width) / 2 - 16
                 height = 180

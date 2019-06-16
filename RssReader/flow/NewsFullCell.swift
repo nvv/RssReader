@@ -8,7 +8,7 @@
 
 import UIKit
 
-class NewsFullCell: BaseNewsCell {
+class NewsFullCell: BaseImageCell {
     
     @IBOutlet weak var thumbnail: UIImageView!
     @IBOutlet weak var title: UILabel!
@@ -32,7 +32,7 @@ class NewsFullCell: BaseNewsCell {
                     if let image = UIImage(data: data) {
                         DispatchQueue.main.async {
                             self?.thumbnail.contentMode = .scaleAspectFit
-                            let img = self?.resizeHeightCrop(image: image, targetSize: CGSize(width: width, height: height))
+                            let img = self?.resizeCropCenter(image: image, targetSize: CGSize(width: width, height: height), resizeAdjust: .width)
                             self?.thumbnail.image = img
                         }
                     }
