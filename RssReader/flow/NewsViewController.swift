@@ -134,18 +134,26 @@ extension NewsViewController: UICollectionViewDelegateFlowLayout {
         
         let width: CGFloat
         let height: CGFloat
+        
+        
+        
         if let item = newsData?.getItems()[indexPath.row] {
-            if (item is AnchorItem) {
+            
+            switch item {
+            case is AnchorItem:
                 width = collectionView.bounds.size.width - 16
                 height = 360
-            } else if (item is CompatItem || item is CompatImageItem) {
+            case is CompatItem:
+                width = collectionView.bounds.size.width - 16
+                height = 90
+            case is CompatImageItem:
                 width = collectionView.bounds.size.width - 16
                 height = 100
-            } else {
+            default:
                 width = (collectionView.bounds.size.width) / 2 - 16
                 height = 180
-                
             }
+
         } else {
             width = 0
             height = 0
