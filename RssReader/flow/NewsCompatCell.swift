@@ -19,17 +19,8 @@ class NewsCopatCell: BaseNewsCell {
     override func bind(_ newsItem: FeedItem) {
         super.bind(newsItem)
         title.text = rssNewsItem?.title
+
+        setupLines(title: title, newsDescription: newsDescription, maxLines: NewsCopatCell.maxLines, maxTitleLines: NewsCopatCell.maxTitleLines)
         
-        let totalTitleLines = title.calculateMaxLines()
-        let titleLines = totalTitleLines < NewsCompatImageCell.maxTitleLines ? totalTitleLines : NewsCompatImageCell.maxTitleLines
-        let descriptionLines = NewsCompatImageCell.maxLines - titleLines
-        
-        title.numberOfLines = titleLines <= NewsCompatImageCell.maxLines ? titleLines : NewsCompatImageCell.maxLines
-        newsDescription.textContainer.maximumNumberOfLines = descriptionLines > 0 ? descriptionLines : 0
-        
-        newsDescription.text = descriptionLines > 0 ? rssNewsItem?.description ?? "" : ""
-        
-        title.text = rssNewsItem?.title
-        newsDescription.text = rssNewsItem?.description
     }
 }

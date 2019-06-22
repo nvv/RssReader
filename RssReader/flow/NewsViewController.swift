@@ -142,10 +142,10 @@ extension NewsViewController: UICollectionViewDelegateFlowLayout {
             switch item {
             case is AnchorItem:
                 width = collectionView.bounds.size.width - 16
-                height = 360
+                height = 280
             case is CompatItem:
                 width = collectionView.bounds.size.width - 16
-                height = 90
+                height = 80
             case is CompatImageItem:
                 width = collectionView.bounds.size.width - 16
                 height = 100

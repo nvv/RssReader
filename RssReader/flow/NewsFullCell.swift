@@ -9,9 +9,14 @@
 import UIKit
 
 class NewsFullCell: BaseImageCell {
+
     
     @IBOutlet weak var thumbnail: UIImageView!
     @IBOutlet weak var title: UILabel!
+    @IBOutlet weak var newsDescription: UITextView!
+    
+    static let maxLines = 4
+    static let maxTitleLines = 3
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -21,24 +26,13 @@ class NewsFullCell: BaseImageCell {
         super.bind(newsItem)
         self.title.text = rssNewsItem?.title
         
-        let width = self.bounds.width
-        let height = self.bounds.height / 1.2
-        
-        DispatchQueue.global().async { [weak self] in
-            if let thumbnail = newsItem.thumbnail {
-                
-                let url = URL(string: thumbnail)
-                if let data = try? Data(contentsOf: url!) {
-                    if let image = UIImage(data: data) {
-                        DispatchQueue.main.async {
-                            self?.thumbnail.contentMode = .scaleAspectFit
-                            let img = self?.resizeCropCenter(image: image, targetSize: CGSize(width: width, height: height), resizeAdjust: .width)
-                            self?.thumbnail.image = img
-                        }
-                    }
-                }
-            }
+        if let url = newsItem.thumbnail {
+            loadThumbnail(thumbnailUrl: url, thumbnail: thumbnail, width: self.bounds.width, height: self.bounds.height / 1.4)
         }
+    }
+    
+    override func onThumbnailLoaded() {
+        setupLines(title: title, newsDescription: newsDescription, maxLines: NewsFullCell.maxLines, maxTitleLines: NewsFullCell.maxTitleLines)
     }
     
     required init?(coder aDecoder: NSCoder) {

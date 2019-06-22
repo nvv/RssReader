@@ -25,35 +25,22 @@ class NewsSmallCell: BaseImageCell {
         super.bind(newsItem)
         title.text = rssNewsItem?.title
         
-        let width = self.bounds.width
-        let height = self.bounds.height / 1.8
-        
-        DispatchQueue.global().async { [weak self] in
-            if let thumbnail = newsItem.thumbnail {
-                
-                let url = URL(string: thumbnail)
-                if let data = try? Data(contentsOf: url!) {
-                    if let image = UIImage(data: data) {
-                        DispatchQueue.main.async {
-                            self?.thumbnail.contentMode = .scaleAspectFit
-                            let img = self?.resizeCropCenter(image: image, targetSize: CGSize(width: width, height: height), resizeAdjust: .width)
-                            self?.thumbnail.image = img
-                        
-                            if let totalTitleLines = self?.title.calculateMaxLines() {
-                                let titleLines = totalTitleLines < NewsSmallCell.maxTitleLines ? totalTitleLines : NewsSmallCell.maxTitleLines
-                                let descriptionLines = NewsSmallCell.maxLines - titleLines
-
-                                self?.title.numberOfLines = titleLines <= NewsSmallCell.maxLines ? titleLines : NewsSmallCell.maxLines
-                                self?.newsDescription.textContainer.maximumNumberOfLines = descriptionLines > 0 ? descriptionLines : 0
-                                
-                                self?.newsDescription.text = descriptionLines > 0 ? self?.rssNewsItem?.description ?? "" : ""
-                                self?.title.text = self?.rssNewsItem?.title
-                            }
-                        }
-                    }
-                }
-            }
+        if let url = newsItem.thumbnail {
+            loadThumbnail(thumbnailUrl: url, thumbnail: thumbnail, width: self.bounds.width, height: self.bounds.height / 1.8)
         }
+    }
+    
+    override func onThumbnailLoaded() {
+//        let totalTitleLines = title.calculateMaxLines()
+//        let titleLines = totalTitleLines < NewsSmallCell.maxTitleLines ? totalTitleLines : NewsSmallCell.maxTitleLines
+//        let descriptionLines = NewsSmallCell.maxLines - titleLines
+//
+//        title.numberOfLines = titleLines <= NewsSmallCell.maxLines ? titleLines : NewsSmallCell.maxLines
+//        newsDescription.textContainer.maximumNumberOfLines = descriptionLines > 0 ? descriptionLines : 0
+//
+//        newsDescription.text = descriptionLines > 0 ? rssNewsItem?.description ?? "" : ""
+//        title.text = rssNewsItem?.title
+        setupLines(title: title, newsDescription: newsDescription, maxLines: NewsSmallCell.maxLines, maxTitleLines: NewsSmallCell.maxTitleLines)
     }
     
     required init?(coder aDecoder: NSCoder) {

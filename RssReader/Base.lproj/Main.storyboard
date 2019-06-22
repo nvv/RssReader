@@ -49,7 +49,7 @@
                                                         <userDefinedRuntimeAttribute type="boolean" keyPath="keyPath" value="YES"/>
                                                     </userDefinedRuntimeAttributes>
                                                 </stackView>
-                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="C7h-7g-N5Q">
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="C7h-7g-N5Q">
                                                     <rect key="frame" x="0.0" y="117" width="140" height="33"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <fontDescription key="fontDescription" type="system" pointSize="14"/>
@@ -90,29 +90,47 @@
                                         <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="bzt-X4-R76">
                                             <rect key="frame" x="0.0" y="0.0" width="138" height="147"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="0uH-DM-JHY">
-                                                    <rect key="frame" x="0.0" y="0.0" width="138" height="50"/>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Pp7-K9-Jlh">
+                                                    <rect key="frame" x="0.0" y="0.0" width="138" height="51"/>
                                                 </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2rX-wm-hHb">
-                                                    <rect key="frame" x="0.0" y="50" width="138" height="97"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" ambiguous="YES" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="7mA-jy-Nhq">
+                                                    <rect key="frame" x="0.0" y="51" width="138" height="19.5"/>
+                                                    <fontDescription key="fontDescription" type="boldSystem" pointSize="16"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <stackView opaque="NO" contentMode="scaleToFill" ambiguous="YES" axis="vertical" translatesAutoresizingMaskIntoConstraints="NO" id="UPA-0s-WR8">
+                                                    <rect key="frame" x="0.0" y="70.5" width="138" height="43.5"/>
+                                                </stackView>
+                                                <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="msy-AT-v4l">
+                                                    <rect key="frame" x="0.0" y="114" width="138" height="33"/>
+                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                    <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                                    <userDefinedRuntimeAttributes>
+                                                        <userDefinedRuntimeAttribute type="number" keyPath="textContainer.lineFragmentPadding">
+                                                            <integer key="value" value="0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                        <userDefinedRuntimeAttribute type="rect" keyPath="textContainerInset">
+                                                            <rect key="value" x="0.0" y="0.0" width="0.0" height="0.0"/>
+                                                        </userDefinedRuntimeAttribute>
+                                                    </userDefinedRuntimeAttributes>
+                                                </textView>
                                             </subviews>
                                         </stackView>
                                     </subviews>
                                 </view>
                                 <constraints>
-                                    <constraint firstItem="bzt-X4-R76" firstAttribute="top" secondItem="vco-Cm-fDK" secondAttribute="top" id="BFz-CJ-xJE"/>
-                                    <constraint firstAttribute="bottom" secondItem="bzt-X4-R76" secondAttribute="bottom" id="JDi-I5-YVz"/>
-                                    <constraint firstItem="bzt-X4-R76" firstAttribute="leading" secondItem="vco-Cm-fDK" secondAttribute="leading" id="tP6-He-YEu"/>
-                                    <constraint firstAttribute="trailing" secondItem="bzt-X4-R76" secondAttribute="trailing" id="wDo-TE-p28"/>
+                                    <constraint firstAttribute="trailing" secondItem="bzt-X4-R76" secondAttribute="trailing" id="R4P-aJ-hF5"/>
+                                    <constraint firstAttribute="bottom" secondItem="bzt-X4-R76" secondAttribute="bottom" id="UDL-lf-e5c"/>
+                                    <constraint firstItem="bzt-X4-R76" firstAttribute="top" secondItem="vco-Cm-fDK" secondAttribute="top" id="YaK-jZ-BjG"/>
+                                    <constraint firstItem="bzt-X4-R76" firstAttribute="leading" secondItem="vco-Cm-fDK" secondAttribute="leading" id="uye-5D-H56"/>
                                 </constraints>
                                 <size key="customSize" width="138" height="147"/>
                                 <connections>
-                                    <outlet property="thumbnail" destination="0uH-DM-JHY" id="V0d-Fg-yfR"/>
-                                    <outlet property="title" destination="2rX-wm-hHb" id="sZ0-TU-M3B"/>
+                                    <outlet property="newsDescription" destination="msy-AT-v4l" id="yDA-0r-3w6"/>
+                                    <outlet property="thumbnail" destination="Pp7-K9-Jlh" id="DbE-CZ-wAh"/>
+                                    <outlet property="title" destination="7mA-jy-Nhq" id="ViI-94-zhd"/>
                                 </connections>
                             </collectionViewCell>
                             <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="NewsCompatCell" id="tnP-Xc-4fc" customClass="NewsCopatCell" customModule="RssReader" customModuleProvider="target">

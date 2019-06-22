@@ -16,4 +16,16 @@ class BaseNewsCell: UICollectionViewCell {
         rssNewsItem = newsItem
     }
 
+    internal func setupLines(title: UILabel, newsDescription: UITextView, maxLines: Int, maxTitleLines: Int) {
+        let totalTitleLines = title.calculateMaxLines()
+        let titleLines = totalTitleLines < maxTitleLines ? totalTitleLines : maxTitleLines
+        let descriptionLines = maxLines - titleLines
+        
+        title.numberOfLines = titleLines <= maxLines ? titleLines : maxLines
+        newsDescription.textContainer.maximumNumberOfLines = descriptionLines > 0 ? descriptionLines : 0
+        
+        newsDescription.text = descriptionLines > 0 ? rssNewsItem?.description ?? "" : ""
+        title.text = rssNewsItem?.title
+    }
+    
 }
